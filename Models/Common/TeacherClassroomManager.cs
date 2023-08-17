@@ -54,22 +54,28 @@ namespace WebAPI.Models.Common
 
             try
             {
-                var record = schoolContext.AllocateClassroom
-                    .Where(f => f.AllocateClassroomId == teacherClassroom.AllocateClassroomId).FirstOrDefault();
-                if (record == null)
+                var classroomExist = schoolContext.AllocateClassroom.
+                    Any(f => f.TeacherId == teacherClassroom.TeacherId && f.ClassroomId == teacherClassroom.ClassroomId && f.IsActive);
+
+                if (!classroomExist)
                 {
-                    var teacherClassroomObj = new AllocateClassroom();
-                    teacherClassroomObj.TeacherId = teacherClassroom.TeacherId;
-                    teacherClassroomObj.ClassroomId = teacherClassroom.ClassroomId;
-                    teacherClassroomObj.IsActive = true;
-                    teacherClassroomObj.CreatedDate = DateTime.Now;
-                    teacherClassroomObj.CreatedBy = -1;
+                    var record = schoolContext.AllocateClassroom
+                        .Where(f => f.AllocateClassroomId == teacherClassroom.AllocateClassroomId).FirstOrDefault();
+                    if (record == null)
+                    {
+                        var teacherClassroomObj = new AllocateClassroom();
+                        teacherClassroomObj.TeacherId = teacherClassroom.TeacherId;
+                        teacherClassroomObj.ClassroomId = teacherClassroom.ClassroomId;
+                        teacherClassroomObj.IsActive = true;
+                        teacherClassroomObj.CreatedDate = DateTime.Now;
+                        teacherClassroomObj.CreatedBy = -1;
 
-                    schoolContext.AllocateClassroom.Add(teacherClassroomObj);
+                        schoolContext.AllocateClassroom.Add(teacherClassroomObj);
+                    }
+
+                    result += schoolContext.SaveChanges();
                 }
-
-                result += schoolContext.SaveChanges();
-
+                else result = -1;
             }
             catch (Exception e)
             {

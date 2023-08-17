@@ -54,20 +54,27 @@ namespace WebAPI.Models.Common
 
             try
             {
-                var record = schoolContext.AllocateSubject.
-                    Where(f => f.AllocateSubjectId == teacherSubject.AllocateSubjectId).FirstOrDefault();
-                if (record == null)
-                {
-                    var teacherSubjectObj = new AllocateSubject();
-                    teacherSubjectObj.TeacherId = teacherSubject.TeacherId;
-                    teacherSubjectObj.SubjectId = teacherSubject.SubjectId;
-                    teacherSubjectObj.IsActive = true;
-                    teacherSubjectObj.CreatedDate = DateTime.Now;
-                    teacherSubjectObj.CreatedBy = -1;
+                var subjectExist = schoolContext.AllocateSubject.
+                    Any(f => f.TeacherId == teacherSubject.TeacherId && f.SubjectId == teacherSubject.SubjectId && f.IsActive);
 
-                    schoolContext.AllocateSubject.Add(teacherSubjectObj);
+                if (!subjectExist)
+                {
+                    var record = schoolContext.AllocateSubject.
+                        Where(f => f.AllocateSubjectId == teacherSubject.AllocateSubjectId).FirstOrDefault();
+                    if (record == null)
+                    {
+                        var teacherSubjectObj = new AllocateSubject();
+                        teacherSubjectObj.TeacherId = teacherSubject.TeacherId;
+                        teacherSubjectObj.SubjectId = teacherSubject.SubjectId;
+                        teacherSubjectObj.IsActive = true;
+                        teacherSubjectObj.CreatedDate = DateTime.Now;
+                        teacherSubjectObj.CreatedBy = -1;
+
+                        schoolContext.AllocateSubject.Add(teacherSubjectObj);
+                    }
+                    result += schoolContext.SaveChanges();
                 }
-                result += schoolContext.SaveChanges();
+                else result = -1;
             }
             catch (Exception)
             {
