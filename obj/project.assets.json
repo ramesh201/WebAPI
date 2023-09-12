@@ -12450,11 +12450,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/macbookpro/Desktop/ReactProjects/WebAPI/WebAPI.csproj",
+      "projectUniqueName": "/Users/macbookpro/Desktop/reactproj/WebAPI/WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "/Users/macbookpro/Desktop/ReactProjects/WebAPI/WebAPI.csproj",
+      "projectPath": "/Users/macbookpro/Desktop/reactproj/WebAPI/WebAPI.csproj",
       "packagesPath": "/Users/macbookpro/.nuget/packages/",
-      "outputPath": "/Users/macbookpro/Desktop/ReactProjects/WebAPI/obj/",
+      "outputPath": "/Users/macbookpro/Desktop/reactproj/WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/macbookpro/.nuget/NuGet/NuGet.Config"

@@ -52,7 +52,7 @@ namespace WebAPI.Models.Common
 
                           }).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -160,7 +160,7 @@ namespace WebAPI.Models.Common
                 result += schoolContext.SaveChanges();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -240,7 +240,7 @@ namespace WebAPI.Models.Common
                 result = new StudentDetailsReportDTO(query1.FirstOrDefault(), query2);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

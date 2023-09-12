@@ -97,7 +97,7 @@ namespace WebAPI.Models.Common
 
                 result = schoolContext.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
